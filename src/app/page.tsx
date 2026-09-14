@@ -4,16 +4,22 @@ import ProductsCartListComponent from "@/components/products/ProductsCartListCom
 import { ProductType } from "@/components/products/ProductsCartComponent";
 
 async function fetchProducts(): Promise<ProductType[]> {
-  const res = await fetch("https://fakestoreapi.com/products", {
-    next: { revalidate: 3600 } // Caches data for 1 hour
-  });
-  
-  if (!res.ok) {
-    throw new Error("Failed to fetch products");
-  }
+  try {
+    const res = await fetch("https://fakestoreapi.com/products", {
+      next: { revalidate: 3600 },
+    });
 
-  return res.json();
+    if (!res.ok) {
+      return [];
+    }
+
+    return res.json();
+  } catch {
+    return [];
+  }
 }
+
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   const productPromise = fetchProducts();
@@ -25,7 +31,9 @@ export default function Home() {
       <Suspense
         fallback={
           <div className="flex justify-center items-center py-20">
-            <p className="text-muted-foreground animate-pulse">Loading products...</p>
+            <p className="text-muted-foreground animate-pulse">
+              Loading products...
+            </p>
           </div>
         }
       >

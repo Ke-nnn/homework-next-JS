@@ -7,8 +7,10 @@ export const metadata = {
   description: "Browse all food items from the Food Recommendation API",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function FoodsPage() {
-  const foodPromise = fetchFoodItems(0, 100);
+  const foodPromise = fetchFoodItems(0, 100).catch(() => []);
 
   return (
     <main className="min-h-screen bg-background">

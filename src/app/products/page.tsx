@@ -5,16 +5,22 @@ import { ProductType } from "@/components/products/ProductsCartComponent";
 import productThumbnail from "./1.png";
 
 async function fetchProducts(): Promise<ProductType[]> {
-  const res = await fetch("https://fakestoreapi.com/products", {
-    next: { revalidate: 3600 },
-  });
+  try {
+    const res = await fetch("https://fakestoreapi.com/products", {
+      next: { revalidate: 3600 },
+    });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch products");
+    if (!res.ok) {
+      return [];
+    }
+
+    return res.json();
+  } catch {
+    return [];
   }
-
-  return res.json();
 }
+
+export const dynamic = "force-dynamic";
 
 // static metadata for product page
 export const metadata: Metadata = {
