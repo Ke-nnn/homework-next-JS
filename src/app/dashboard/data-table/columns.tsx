@@ -1,11 +1,11 @@
-import Image from "next/image"
-import { createColumnHelper } from "@tanstack/react-table"
+import Image from "next/image";
+import { createColumnHelper } from "@tanstack/react-table";
 
-import { type DataTableFeatures } from "./data-table-features"
-import { Products } from "@/lib/table-data"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
- 
-import { Button } from "@/components/ui/button"
+import { type DataTableFeatures } from "./data-table-features";
+import { Products } from "@/lib/table-data";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,11 +13,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import { Checkbox } from "@/components/ui/checkbox";
 
 // Use `accessor` for data columns and `display` for columns without one.
-const columnHelper = createColumnHelper<DataTableFeatures, Products>()
+const columnHelper = createColumnHelper<DataTableFeatures, Products>();
 
 export const columns = columnHelper.columns([
   columnHelper.display({
@@ -94,11 +94,11 @@ export const columns = columnHelper.columns([
 
       return (
         <DropdownMenu>
-          <DropdownMenuTrigger
-            render={<Button variant="ghost" className="h-8 w-8 p-0" />}
-          >
-            <span className="sr-only">Open menu</span>
-            <MoreHorizontal className="h-4 w-4" />
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>

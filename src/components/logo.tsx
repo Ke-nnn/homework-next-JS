@@ -64,7 +64,9 @@ const LogoBrandDownload = ({
 
   return (
     <ContextMenu>
-      <ContextMenuTrigger render={<div className={cn("inline-block", className)} />}>{children}</ContextMenuTrigger>
+      <ContextMenuTrigger asChild>
+        <div className={cn("inline-block", className)}>{children}</div>
+      </ContextMenuTrigger>
       <ContextMenuContent className="w-48">
         {files.map((file) => (
           <ContextMenuItem
