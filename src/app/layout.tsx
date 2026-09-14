@@ -6,6 +6,7 @@ import { FooterComponent } from "@/components/FooterComponent";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import StyledComponentsRegistry from "@/StyleComponentRegistry";
 import NetworkStatusProvider from "@/components/NetworkStatusProvider";
+import productThumbnail from "./products/1.png";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +19,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ??
+      (process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000"),
+  ),
   title: {
     template: "%s | Food Recommendation",
     default: "Food Recommendation",
@@ -35,7 +42,7 @@ export const metadata: Metadata = {
     title: "Food Recommendation",
     description:
       "Food Recommendation is a platform for discovering and exploring delicious food.",
-    images: ["/A1_Thumbnail_project.png"],
+    images: [productThumbnail.src],
     type: "website",
   },
 };

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import ProductsCartListComponent from "@/components/products/ProductsCartListComponent";
 import { ProductType } from "@/components/products/ProductsCartComponent";
+import productThumbnail from "./1.png";
 
 async function fetchProducts(): Promise<ProductType[]> {
   const res = await fetch("https://fakestoreapi.com/products", {
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     title: "Products",
     description:
       "This is product page which list down many products from the website.",
-    images: ["A1_Thumbnail_project.png"],
+    images: [productThumbnail.src],
   },
 };
 
