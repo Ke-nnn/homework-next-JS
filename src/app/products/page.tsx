@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import ProductsCartListComponent from "@/components/products/ProductsCartListComponent";
-import productThumbnail from "./1.png";
 
 // static metadata for product page
 export const metadata: Metadata = {
@@ -13,7 +12,7 @@ export const metadata: Metadata = {
     title: "Products",
     description:
       "This is product page which list down many products from the website.",
-    images: [productThumbnail.src],
+    images: ["/thumbnail.png"],
   },
 };
 

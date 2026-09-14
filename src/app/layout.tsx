@@ -6,7 +6,6 @@ import { FooterComponent } from "@/components/FooterComponent";
 import { ErrorBoundary } from "next/dist/client/components/error-boundary";
 import StyledComponentsRegistry from "@/StyleComponentRegistry";
 import NetworkStatusProvider from "@/components/NetworkStatusProvider";
-import productThumbnail from "./products/1.png";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,23 +25,17 @@ export const metadata: Metadata = {
         : "http://localhost:3000"),
   ),
   title: {
-    template: "%s | Food Recommendation",
-    default: "Food Recommendation",
+    template: "%s | blockComerce",
+    default: "blockComerce",
   },
   description:
-    "Food Recommendation is a platform for discovering and exploring delicious food.",
-  keywords: [
-    "Food Recommendation",
-    "food",
-    "restaurants",
-    "dishes",
-    "food discovery",
-  ],
+    "blockComerce is a platform for discovering and exploring delicious food.",
+  keywords: ["blockComerce", "food", "restaurants", "dishes", "food discovery"],
   openGraph: {
-    title: "Food Recommendation",
+    title: "blockComerce",
     description:
-      "Food Recommendation is a platform for discovering and exploring delicious food.",
-    images: [productThumbnail.src],
+      "blockComerce is a platform for discovering and exploring delicious food.",
+    images: ["/thumbnail.png"],
     type: "website",
   },
 };

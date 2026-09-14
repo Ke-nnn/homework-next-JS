@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import productThumbnail from "../products/1.png";
 
 export default function AboutPage() {
   return (
@@ -17,7 +16,7 @@ export default function AboutPage() {
         </div>
 
         <Image
-          src={productThumbnail}
+          src="/thumbnail.png"
           alt="BlockCommerce modern clothing collection"
           priority
           className="h-auto w-full max-w-4xl rounded-md object-cover"
@@ -38,6 +37,6 @@ export const metadata: Metadata = {
     title: "About",
     description:
       "This is about page of BlockCommerce which detail about how the service was created with mission, vision, and team.",
-    images: [productThumbnail.src],
+    images: ["/thumbnail.png"],
   },
 };

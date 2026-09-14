@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import productThumbnail from "../products/1.png";
 
 export default function DashBoardLayoutConponent({
   children,
@@ -23,7 +22,7 @@ export const metadata: Metadata = {
     title: "BlockComerce",
     description:
       "BlockComerce is a platform for discovering and exploring delicious food.",
-    images: [productThumbnail.src],
+    images: ["/thumbnail.png"],
     type: "website",
   },
 };
