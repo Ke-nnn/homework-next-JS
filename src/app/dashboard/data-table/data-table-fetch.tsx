@@ -16,7 +16,7 @@ const fetcher = async (url: string): Promise<Products[]> => {
 
 export default function DataTableFetch() {
   const { data, error, isLoading } = useSWR<Products[]>(
-    `https://fakestoreapi.com/products`,
+    `/api/products`,
     fetcher,
   );
 

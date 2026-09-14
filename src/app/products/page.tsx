@@ -27,7 +27,7 @@ export default function ProductsPage() {
         </p>
       </section>
 
-      <ProductsCartListComponent apiUrl="https://fakestoreapi.com/products" />
+      <ProductsCartListComponent apiUrl="/api/products" />
     </main>
   );
 }

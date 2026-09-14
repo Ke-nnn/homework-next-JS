@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background">
       <HeroSectionComponent />
-      <ProductsCartListComponent apiUrl="https://fakestoreapi.com/products" />
+      <ProductsCartListComponent apiUrl="/api/products" />
     </main>
   );
 }
