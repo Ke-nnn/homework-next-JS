@@ -11,35 +11,12 @@ const fetcher = async (url: string): Promise<Products[]> => {
     throw new Error("An error occurred while fetching the data.");
   }
 
-  const payload = await res.json();
-  return payload.products.map(
-    (product: {
-      id: number;
-      title: string;
-      price: number;
-      description: string;
-      category: string;
-      thumbnail: string;
-      rating: number;
-      reviews?: unknown[];
-    }) => ({
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      description: product.description,
-      category: product.category,
-      image: product.thumbnail,
-      rating: {
-        rate: product.rating,
-        count: product.reviews?.length ?? 0,
-      },
-    }),
-  );
+  return res.json();
 };
 
 export default function DataTableFetch() {
   const { data, error, isLoading } = useSWR<Products[]>(
-    `https://dummyjson.com/products?limit=20`,
+    `https://fakestoreapi.com/products`,
     fetcher,
   );
 

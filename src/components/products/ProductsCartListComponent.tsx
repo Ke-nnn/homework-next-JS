@@ -3,12 +3,6 @@
 import { useEffect, useState } from "react";
 import ProductsCartComponent, { ProductType } from "./ProductsCartComponent";
 
-type DummyJsonProduct = Omit<ProductType, "rating" | "image"> & {
-  thumbnail: string;
-  rating: number;
-  reviews?: unknown[];
-};
-
 export default function ProductsCartListComponent({
   apiUrl,
   products,
@@ -34,26 +28,9 @@ export default function ProductsCartListComponent({
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
-        return response.json() as Promise<
-          ProductType[] | { products: DummyJsonProduct[] }
-        >;
+        return response.json() as Promise<ProductType[]>;
       })
-      .then((payload) => {
-        const nextProducts = Array.isArray(payload)
-          ? payload
-          : payload.products.map((product) => ({
-              id: product.id,
-              title: product.title,
-              price: product.price,
-              description: product.description,
-              category: product.category,
-              image: product.thumbnail,
-              rating: {
-                rate: product.rating,
-                count: product.reviews?.length ?? 0,
-              },
-            }));
-
+      .then((nextProducts) => {
         if (isActive) {
           setFetchedProducts(nextProducts);
         }
