@@ -1,26 +1,6 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
 import ProductsCartListComponent from "@/components/products/ProductsCartListComponent";
-import { ProductType } from "@/components/products/ProductsCartComponent";
 import productThumbnail from "./1.png";
-
-async function fetchProducts(): Promise<ProductType[]> {
-  try {
-    const res = await fetch("https://fakestoreapi.com/products", {
-      next: { revalidate: 3600 },
-    });
-
-    if (!res.ok) {
-      return [];
-    }
-
-    return res.json();
-  } catch {
-    return [];
-  }
-}
-
-export const dynamic = "force-dynamic";
 
 // static metadata for product page
 export const metadata: Metadata = {
@@ -38,8 +18,6 @@ export const metadata: Metadata = {
 };
 
 export default function ProductsPage() {
-  const productPromise = fetchProducts();
-
   return (
     <main className="min-h-screen bg-background">
       <section className="container py-10">
@@ -49,17 +27,7 @@ export default function ProductsPage() {
         </p>
       </section>
 
-      <Suspense
-        fallback={
-          <div className="flex justify-center items-center py-20">
-            <p className="text-muted-foreground animate-pulse">
-              Loading products...
-            </p>
-          </div>
-        }
-      >
-        <ProductsCartListComponent productFromApi={productPromise} />
-      </Suspense>
+      <ProductsCartListComponent apiUrl="https://fakestoreapi.com/products" />
     </main>
   );
 }

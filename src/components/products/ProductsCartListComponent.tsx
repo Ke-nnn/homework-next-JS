@@ -1,59 +1,75 @@
 "use client";
 
-import { use } from "react";
+import { useEffect, useState } from "react";
 import ProductsCartComponent, { ProductType } from "./ProductsCartComponent";
-import productThumbnail from "@/app/products/1.png";
-
-const fallbackProducts: ProductType[] = [
-  {
-    id: 1001,
-    title: "Everyday Essentials",
-    price: 29.99,
-    description: "Reliable everyday products selected for your routine.",
-    category: "Featured",
-    image: productThumbnail.src,
-    rating: { rate: 4.5, count: 24 },
-  },
-  {
-    id: 1002,
-    title: "Modern Collection",
-    price: 49.99,
-    description: "Practical products with a clean, modern design.",
-    category: "Featured",
-    image: productThumbnail.src,
-    rating: { rate: 4.3, count: 18 },
-  },
-  {
-    id: 1003,
-    title: "Daily Comfort",
-    price: 39.99,
-    description: "Comfortable choices made for everyday use.",
-    category: "Featured",
-    image: productThumbnail.src,
-    rating: { rate: 4.6, count: 31 },
-  },
-  {
-    id: 1004,
-    title: "Customer Favorite",
-    price: 59.99,
-    description: "A popular pick from our featured collection.",
-    category: "Featured",
-    image: productThumbnail.src,
-    rating: { rate: 4.8, count: 42 },
-  },
-];
 
 export default function ProductsCartListComponent({
-  productFromApi,
+  apiUrl,
   products,
 }: {
-  productFromApi?: Promise<ProductType[]>;
+  apiUrl?: string;
   products?: ProductType[];
 }) {
-  const fetchedProducts = productFromApi ? use(productFromApi) : products || [];
-  const resolvedProducts = fetchedProducts.length
-    ? fetchedProducts
-    : fallbackProducts;
+  const [fetchedProducts, setFetchedProducts] = useState<ProductType[]>(
+    products || [],
+  );
+  const [isLoading, setIsLoading] = useState(Boolean(apiUrl));
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    if (!apiUrl) {
+      return;
+    }
+
+    let isActive = true;
+
+    fetch(apiUrl)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        return response.json() as Promise<ProductType[]>;
+      })
+      .then((nextProducts) => {
+        if (isActive) {
+          setFetchedProducts(nextProducts);
+        }
+      })
+      .catch(() => {
+        if (isActive) {
+          setHasError(true);
+        }
+      })
+      .finally(() => {
+        if (isActive) {
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, [apiUrl]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center py-20">
+        <p className="text-muted-foreground animate-pulse">
+          Loading products...
+        </p>
+      </div>
+    );
+  }
+
+  if (hasError || fetchedProducts.length === 0) {
+    return (
+      <div className="flex justify-center items-center py-20">
+        <p className="text-muted-foreground">
+          Products are temporarily unavailable.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <section className="py-12 px-4 md:px-8">
@@ -62,7 +78,7 @@ export default function ProductsCartListComponent({
           Featured Products
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {resolvedProducts.map((product) => (
+          {fetchedProducts.map((product) => (
             <ProductsCartComponent key={product.id} product={product} />
           ))}
         </div>
